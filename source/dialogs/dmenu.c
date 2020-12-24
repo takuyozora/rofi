@@ -746,7 +746,13 @@ int dmenu_switcher_dialog ( void )
     if ( async && ( pd->cancel != NULL ) ) {
         rofi_view_set_overlay ( state, "Loading.. " );
     }
-    rofi_view_set_selected_line ( state, pd->selected_line );
+    if ( find_arg ( "-filtered-selected-row" ) >= 0 ) {
+        unsigned int sr = 0;
+        find_arg_uint (  "-filtered-selected-row", &( sr ) );
+        rofi_view_set_filtered_selected_line ( state, sr );
+    }else{
+        rofi_view_set_selected_line ( state, pd->selected_line );
+    }
     rofi_view_set_active ( state );
 
     return FALSE;
@@ -758,6 +764,7 @@ void print_dmenu_options ( void )
     print_help_msg ( "-mesg", "[string]", "Print a small user message under the prompt (uses pango markup)", NULL, is_term );
     print_help_msg ( "-p", "[string]", "Prompt to display left of entry field", NULL, is_term );
     print_help_msg ( "-selected-row", "[integer]", "Select row", NULL, is_term );
+    print_help_msg ( "-filtered-selected-row", "[integer]", "Select a filtered row", NULL, is_term );
     print_help_msg ( "-format", "[string]", "Output format string", "s", is_term );
     print_help_msg ( "-u", "[list]", "List of row indexes to mark urgent", NULL, is_term );
     print_help_msg ( "-a", "[list]", "List of row indexes to mark active", NULL, is_term );

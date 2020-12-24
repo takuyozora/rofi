@@ -525,6 +525,14 @@ void rofi_view_set_active ( RofiViewState *state )
     rofi_view_queue_redraw ();
 }
 
+void rofi_view_set_filtered_selected_line ( RofiViewState *state, unsigned int selected_line )
+{
+    state->selected_line = selected_line;
+    listview_set_selected ( state->list_view, selected_line );
+    xcb_clear_area ( xcb->connection, CacheState.main_window, 1, 0, 0, 1, 1 );
+    xcb_flush ( xcb->connection );
+}
+
 void rofi_view_set_selected_line ( RofiViewState *state, unsigned int selected_line )
 {
     state->selected_line = selected_line;

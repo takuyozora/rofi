@@ -133,6 +133,14 @@ const char * rofi_view_get_user_input ( const RofiViewState *state );
  * @param state The Menu Handle
  * @param selected_line The line to select.
  *
+ * Select a filtered line.
+ */
+void rofi_view_set_filtered_selected_line ( RofiViewState *state, unsigned int selected_line );
+
+/**
+ * @param state The Menu Handle
+ * @param selected_line The line to select.
+ *
  * Select a line.
  */
 void rofi_view_set_selected_line ( RofiViewState *state, unsigned int selected_line );
